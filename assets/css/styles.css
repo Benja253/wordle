@@ -87,3 +87,7 @@
     color: red;
   }
 }
+.input-hidden {
+  position: absolute;
+  top: -10000em;
+}

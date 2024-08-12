@@ -1,3 +1,13 @@
+window.onload = function() {
+  let inputPivot = document.getElementById('inputHidden');
+  inputPivot.focus();
+
+  inputPivot.addEventListener('blur', function() {
+      setTimeout(function() {
+        inputPivot.focus();
+      }, 0);
+  });
+}
 let palabraDelDia = todasLasPalabras[Math.floor(Math.random() * todasLasPalabras.length)]
 
 const body = document.getElementById('body')
