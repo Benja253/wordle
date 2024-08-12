@@ -64,3 +64,26 @@
   background-color: rgb(165, 151, 55);
   color: white;
 }
+.resultado {
+  margin-top: 2em;
+  text-align: center;
+  color: white;
+}
+.resultado__gratz {
+  font-size: 1.5em;
+  font-weight: 500;
+  text-align: center;
+  color: inherit;
+}
+.resultado__phrase {
+  font-size: 1.2em;
+  color: #aaa;
+  font-weight: 300;
+}
+.resultado__word {
+  font-size: 2em;
+  color: green;
+  &.notfound {
+    color: red;
+  }
+}
