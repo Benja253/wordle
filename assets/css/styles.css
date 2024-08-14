@@ -52,18 +52,6 @@
 .letterActive {
   outline: 1px solid var(--light-blue);
 }
-.no {
-  background-color: #767676e0;
-  color: black;
-}
-.perfect {
-  background-color: rgb(44, 128, 44);
-  color: white;
-}
-.imperfect {
-  background-color: rgb(165, 151, 55);
-  color: white;
-}
 .resultado {
   margin-top: 2em;
   text-align: center;
@@ -90,4 +78,65 @@
 .input-hidden {
   position: absolute;
   top: -10000em;
+}
+
+.teclado {
+  margin-top: 2em;
+  display: grid;
+  gap: 0.4em;
+  justify-content: center;
+  width: 100%;
+  max-width: 25em;
+  margin-left: auto;
+  margin-right: auto;
+}
+.teclado__row1,
+.teclado__row2,
+.teclado__row3 {
+  display: grid;
+  grid-template-columns: repeat(110, 1fr);
+  gap: 0.22em;
+}
+.teclado__row3 .tecla {
+  grid-column: span 10;
+}
+.tecla {
+  background-color: #aaa;
+  font-weight: 700;
+  text-transform: uppercase;
+  display: grid;
+  place-content: center;
+  border-radius: 0.2em;
+  cursor: pointer;
+  grid-column: span 11;
+  height: 3em;
+  background-color: rgb(63, 71, 82);
+  color: white;
+  & img {
+    width: 50%;
+    margin: 0 auto;
+    color: white;
+  }
+  &:hover {
+    filter: brightness(1.2);
+  }
+}
+.teclado__row3 .enter,
+.teclado__row3 .backspace {
+  grid-column: span 20;
+}
+.backspace {
+  order: 1;
+}
+.no {
+  background-color: #2a2a2ae0;
+  color: white;
+}
+.perfect {
+  background-color: rgb(44, 128, 44);
+  color: white;
+}
+.imperfect {
+  background-color: rgb(182, 161, 26);
+  color: white;
 }

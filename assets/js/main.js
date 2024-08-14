@@ -1,13 +1,3 @@
-window.onload = function() {
-  let inputPivot = document.getElementById('inputHidden');
-  inputPivot.focus();
-
-  inputPivot.addEventListener('blur', function() {
-      setTimeout(function() {
-        inputPivot.focus();
-      }, 0);
-  });
-}
 let palabraDelDia = todasLasPalabras[Math.floor(Math.random() * todasLasPalabras.length)]
 
 const body = document.getElementById('body')
@@ -103,6 +93,11 @@ body.addEventListener('keydown', e => {
           words[isFinalWord ? 5 : fila - 1].children[i].lastElementChild.classList.add('front')
         }, 200*i)
       }
+      setTimeout(() => {
+        objetoCoincidencias.forEach((e, index) => {
+          document.getElementById(e.value.toLowerCase()).classList.add(e.coincidencia)
+        })
+      }, 800)
       if(fila < 5) {
         casillaSeleccionada.classList.remove('letterActive')
         columna = 0
