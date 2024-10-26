@@ -52,10 +52,12 @@ const comprobarPalabra = (palabra, wordDay) => {
     const titleModal = modal.firstElementChild.firstElementChild
     const spanResult = modal.firstElementChild.children[1].firstElementChild
     const btnModal = modal.firstElementChild.children[3].firstElementChild
+    const imgModal = modal.firstElementChild.children[2].firstElementChild
 
     titleModal.textContent = 'Ganaste 🎉'
     spanResult.classList.remove('modal__red')
     btnModal.classList.remove('modal__red')
+    imgModal.src = './assets/imgs/meme-muy-bien.jpg'
     spanResult.textContent = wordDay
     modal.classList.remove('modal__hidden')
   }
@@ -63,10 +65,12 @@ const comprobarPalabra = (palabra, wordDay) => {
     const titleModal = modal.firstElementChild.firstElementChild
     const spanResult = modal.firstElementChild.children[1].firstElementChild
     const btnModal = modal.firstElementChild.children[3].firstElementChild
+    const imgModal = modal.firstElementChild.children[2].firstElementChild
 
     titleModal.textContent = 'Perdiste ❌'
     spanResult.classList.add('modal__red')
     btnModal.classList.add('modal__red')
+    imgModal.src = './assets/imgs/meme-ninio-venas.jpg'
     spanResult.textContent = wordDay
     modal.classList.remove('modal__hidden')
   }
