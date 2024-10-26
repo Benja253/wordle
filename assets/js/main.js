@@ -3,6 +3,8 @@ let palabraDelDia = palabrasSelect[Math.floor(Math.random() * palabrasSelect.len
 const body = document.getElementById('body')
 const words = document.querySelectorAll('.word')
 const teclado = document.getElementById('teclado')
+const modal = document.getElementById('modal')
+const btnRepeat = document.getElementById('modalBtn')
 
 let fila = 0
 let columna = 0
@@ -33,15 +35,11 @@ const comprobarPalabra = (palabra, wordDay) => {
       return obj
     }
   })
-  console.log(arrContador)
+
   // Colocar amarillas solo si es necesario
   arrResult = arrPalabra.map((e, i) => {
     const obj = {value: e, coincidencia: 'imperfect'}
-    console.log({
-      'la inclye': wordDay.includes(palabra[i]),
-      'contador': arrContador[e],
-      'distinto perfect': arrResult[i].coincidencia
-    })
+
     if (wordDay.toUpperCase().includes(palabra[i]) && arrContador[e] !== 0 && arrResult[i].coincidencia !== 'perfect') {
       arrContador[e] -= 1
       return obj
@@ -49,14 +47,28 @@ const comprobarPalabra = (palabra, wordDay) => {
       return arrResult[i]
     }
   })
-  console.log({arrResult, arrContador, wordDay})
+
   if(arrResult.every(cv => cv.coincidencia === 'perfect')) {
-    document.getElementById('resultado').innerHTML = `<span class='resultado__gratz'>🎉¡Felicidades!</span>
-    <span class='resultado__phrase'>La palabra buscada es: </span><span class='resultado__word'>${arrResult.map(e => e.value).join('')}</span>`
+    const titleModal = modal.firstElementChild.firstElementChild
+    const spanResult = modal.firstElementChild.children[1].firstElementChild
+    const btnModal = modal.firstElementChild.children[3].firstElementChild
+
+    titleModal.textContent = 'Ganaste 🎉'
+    spanResult.classList.remove('modal__red')
+    btnModal.classList.remove('modal__red')
+    spanResult.textContent = wordDay
+    modal.classList.remove('modal__hidden')
   }
   if(fila === 5 && !arrResult.every(cv => cv.coincidencia === 'perfect')) {
-    document.getElementById('resultado').innerHTML = `<span class='resultado__gratz'>❌¡No encontraste la palabra! 😞</span>
-    <span class='resultado__phrase'>La palabra buscada era: </span><span class='resultado__word notfound'>${palabraDelDia.toUpperCase()}</span>`
+    const titleModal = modal.firstElementChild.firstElementChild
+    const spanResult = modal.firstElementChild.children[1].firstElementChild
+    const btnModal = modal.firstElementChild.children[3].firstElementChild
+
+    titleModal.textContent = 'Perdiste ❌'
+    spanResult.classList.add('modal__red')
+    btnModal.classList.add('modal__red')
+    spanResult.textContent = wordDay
+    modal.classList.remove('modal__hidden')
   }
   return arrResult
 }
@@ -169,4 +181,8 @@ teclado.addEventListener('click', (e) => {
       }
     }
   }
+})
+
+btnRepeat.addEventListener('click', () => {
+  location.reload()
 })

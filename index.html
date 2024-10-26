@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./assets/css/reset.css">
+  <link rel="stylesheet" href="./assets/css/modal.css">
   <link rel="stylesheet" href="./assets/css/styles.css">
   <title>Wordle Benja</title>
 </head>
@@ -144,7 +145,18 @@
       </li>
     </ul>
   </div>
-  <h2 class="resultado" id="resultado"></h2>
+  <div class="modal modal__hidden" id="modal">
+    <div class="modal__int">
+      <h2 class="modal__title" id="modalTitle">Ganaste 🎉</h2>
+      <h3 class="modal__text">La palabra seleccionada es:<span class="modal__resultado" id="modalResultado">Muela</span></h3>
+      <div class="modal__img__container">
+        <img class="modal__img" src="./assets/imgs/meme-muy-bien.jpg" alt="">
+      </div>
+      <div class="modal__btn__container">
+        <button id="modalBtn" class="modal__btn">Jugar otra palabra</button>
+      </div>
+    </div>
+  </div>
   <div id="teclado" class="teclado">
     <div class="teclado__row1">
       <div id="q" class="tecla q">q</div>

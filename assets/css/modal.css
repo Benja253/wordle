@@ -1,0 +1,85 @@
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  backdrop-filter: blur(2px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(1);
+}
+.modal__hidden {
+  transform: scale(0);
+  transition: transform 200ms ease;
+}
+.modal__int {
+  background-color: rgb(8, 32, 58);
+  color: var(--white-color);
+  padding: 2em 1.5em 3em;
+  border-radius: 0.8em;
+}
+.modal__title {
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 0.5em;
+  font-size: 1.1em;
+} 
+.modal__text {
+  text-align: center;
+  color: #aaa;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  font-size: 1em;
+}
+.modal__resultado {
+  color: green;
+  text-transform: uppercase;
+  font-size: 1.4em;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  &.modal__red {
+    color: red;
+  }
+}
+.modal__img {
+  max-width: 20em;
+}
+.modal__btn__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+}
+.modal__btn {
+  background-color: green;
+  color: white;
+  padding: 1em 2em;
+  border-radius: 0.5em;
+  font-size: 1em;
+  border: none;
+  animation: btn__scale 500ms infinite;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(1.1);
+  }
+  &.modal__red {
+    background-color: red;
+  }
+}
+
+@keyframes btn__scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

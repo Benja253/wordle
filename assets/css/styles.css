@@ -132,11 +132,11 @@
   background-color: #2a2a2ae0;
   color: white;
 }
-.perfect {
-  background-color: rgb(44, 128, 44);
-  color: white;
-}
 .imperfect {
   background-color: rgb(182, 161, 26);
+  color: white;
+}
+.perfect {
+  background-color: rgb(44, 128, 44);
   color: white;
 }
