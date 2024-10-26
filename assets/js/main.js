@@ -1,4 +1,4 @@
-let palabraDelDia = todasLasPalabras[Math.floor(Math.random() * todasLasPalabras.length)]
+let palabraDelDia = palabrasSelect[Math.floor(Math.random() * palabrasSelect.length)]
 
 const body = document.getElementById('body')
 const words = document.querySelectorAll('.word')
