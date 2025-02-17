@@ -132,7 +132,7 @@ body.addEventListener('keydown', e => {
     for(let j = 0; j < 5;j++) {
       palabra.push(words[fila].children[j].lastElementChild.textContent)
     }
-    if(columna === 4 && words[fila].children[columna].lastElementChild.textContent != "") {
+    if(palabra.includes("") && palabra[4] != "") {
       cambiarAVacios(palabra)
     }
     if(!palabra.includes("")) {
@@ -144,7 +144,7 @@ body.addEventListener('keydown', e => {
 
   // Funcionalidad cuando se apreta la tecla backscace
   if(e.key === 'Backspace' && fila !== 6) {
-    if(columna === 4 && words[fila].children[columna].firstElementChild.textContent !== '' ) {
+    if(words[fila].children[columna].firstElementChild.textContent !== '') {
       words[fila].children[columna].firstElementChild.textContent = ''
       words[fila].children[columna].lastElementChild.textContent = ''
     } else {
@@ -175,12 +175,24 @@ body.addEventListener('keydown', e => {
 // Uso del teclado visual
 teclado.addEventListener('click', (e) => {
 
-  if(/[a-zA-ZñÑ]/.test(e.target.id) && e.target.id.length === 1) {
+  if(/[a-zA-ZñÑ]/.test(e.target.id) && e.target.id.length === 1 && words[fila].children[columna].firstElementChild.textContent === '') {
     words[fila].children[columna].firstElementChild.textContent = e.target.id.toUpperCase()
     words[fila].children[columna].lastElementChild.textContent = e.target.id.toUpperCase()
     if(columna < 4) {
       words[fila].children[columna].classList.remove('letterActive')
       columna++
+      words[fila].children[columna].classList.add('letterActive')
+    }
+    let palabra = []
+    for(let j = 0; j < 5;j++) {
+      palabra.push(words[fila].children[j].lastElementChild.textContent)
+    }
+    if(palabra.includes("") && palabra[4] != "") {
+      cambiarAVacios(palabra)
+    }
+    if(!palabra.includes("")) {
+      words[fila].children[columna].classList.remove('letterActive')
+      columna = 4
       words[fila].children[columna].classList.add('letterActive')
     }
   }
@@ -198,7 +210,7 @@ teclado.addEventListener('click', (e) => {
   }
 
   if((e.target.id === 'Backspace' || e.target.parentElement.id === 'Backspace') && fila !== 6) {
-    if(columna === 4 && words[fila].children[columna].firstElementChild.textContent !== '' ) {
+    if(words[fila].children[columna].firstElementChild.textContent !== '' ) {
       words[fila].children[columna].firstElementChild.textContent = ''
       words[fila].children[columna].lastElementChild.textContent = ''
     } else {
@@ -219,7 +231,6 @@ box.addEventListener('click', (e) => {
   words[fila].children[columna].classList.remove('letterActive')
   if(classSelect?.includes('word') && fila + 1  == classSelect[0].at(4)) {
     columna = e.target.parentElement.classList[0].at(6) - 1
-    console.log(columna)
     words[fila].children[columna].classList.add('letterActive')
   }
 })
