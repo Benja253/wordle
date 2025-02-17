@@ -162,7 +162,6 @@ body.addEventListener('keydown', e => {
     }
     if(palabra.every(e => e == "")) {
       words[fila].children[columna].classList.remove('letterActive')
-      fila = 0
       columna = 0
       words[fila].children[columna].classList.add('letterActive')
     }
@@ -238,7 +237,6 @@ teclado.addEventListener('click', (e) => {
     }
     if(palabra.every(e => e == "")) {
       words[fila].children[columna].classList.remove('letterActive')
-      fila = 0
       columna = 0
       words[fila].children[columna].classList.add('letterActive')
     }
