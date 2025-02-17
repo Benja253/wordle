@@ -248,8 +248,8 @@ teclado.addEventListener('click', (e) => {
 // Cambiar la casilla activa
 box.addEventListener('click', (e) => {
   const classSelect = e.target.parentElement.parentElement.classList.value.split(" ")
-  words[fila].children[columna].classList.remove('letterActive')
   if(classSelect?.includes('word') && fila + 1  == classSelect[0].at(4)) {
+    words[fila].children[columna].classList.remove('letterActive')
     columna = e.target.parentElement.classList[0].at(6) - 1
     words[fila].children[columna].classList.add('letterActive')
   }
