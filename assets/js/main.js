@@ -156,6 +156,16 @@ body.addEventListener('keydown', e => {
         columna--
       }
     }
+    let palabra = []
+    for(let j = 0; j < 5;j++) {
+      palabra.push(words[fila].children[j].lastElementChild.textContent)
+    }
+    if(palabra.every(e => e == "")) {
+      words[fila].children[columna].classList.remove('letterActive')
+      fila = 0
+      columna = 0
+      words[fila].children[columna].classList.add('letterActive')
+    }
   }
 
   // Funcionalidad cuando se apreta la tecla enter
@@ -221,6 +231,16 @@ teclado.addEventListener('click', (e) => {
         words[fila].children[columna - 1].lastElementChild.textContent = ''
         columna--
       }
+    }
+    let palabra = []
+    for(let j = 0; j < 5;j++) {
+      palabra.push(words[fila].children[j].lastElementChild.textContent)
+    }
+    if(palabra.every(e => e == "")) {
+      words[fila].children[columna].classList.remove('letterActive')
+      fila = 0
+      columna = 0
+      words[fila].children[columna].classList.add('letterActive')
     }
   }
 })
