@@ -142,7 +142,10 @@
 }
 
 @media screen and (max-width: 720px) {
+  .title {
+    margin-top: 1em;
+  }
   body {
-    font-size: 0.8em
+    font-size: 0.9rem
   }
 }

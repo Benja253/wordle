@@ -9,10 +9,10 @@
   justify-content: center;
   align-items: center;
   transform: scale(1);
+  transition: transform 200ms ease;
 }
 .modal__hidden {
   transform: scale(0);
-  transition: transform 200ms ease;
 }
 .modal__int {
   background-color: rgb(8, 32, 58);
