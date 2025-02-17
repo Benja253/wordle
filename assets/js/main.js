@@ -5,14 +5,27 @@ const words = document.querySelectorAll('.word')
 const teclado = document.getElementById('teclado')
 const modal = document.getElementById('modal')
 const btnRepeat = document.getElementById('modalBtn')
+const box = document.getElementById('box')
 
 let fila = 0
 let columna = 0
 
 words[fila].children[columna].classList.add('letterActive')
 
+// Comprueba si la palabra existe en la base de datos
 const palabraExiste = (palabra, arrPalabras) => arrPalabras.includes(palabra.toLowerCase())
 
+const cambiarAVacios = (arrPalabra) => {
+  if(arrPalabra.indexOf('') != -1) {
+    words[fila].children[columna].classList.remove('letterActive')
+    columna = arrPalabra.indexOf('')
+    words[fila].children[columna].classList.add('letterActive')
+  } else {
+    columna = 4
+  }
+}
+
+// Comprobar si es la misma palabra
 const comprobarPalabra = (palabra, wordDay) => {
   let arrResult = []
   const arrWordDay = wordDay.toUpperCase().split('')
@@ -95,7 +108,7 @@ const callbackEnter = (palabra) => {
     })
   }, 800)
   if(fila < 5) {
-    words[fila ].children[columna].classList.remove('letterActive')
+    words[fila].children[columna].classList.remove('letterActive')
     columna = 0
     fila++
     words[fila].children[columna].classList.add('letterActive')
@@ -106,13 +119,25 @@ body.addEventListener('keydown', e => {
   
   let casillaSeleccionada = words[fila].children[columna]
 
-  // Comprueba si es una palabra
+  // Comprueba si es una letra
   if(columna <= 4 && /[a-zA-ZñÑ]/.test(e.key) && e.key.length === 1 && casillaSeleccionada.firstElementChild.textContent === '') {
     casillaSeleccionada.firstElementChild.textContent = e.key.toUpperCase()
     casillaSeleccionada.lastElementChild.textContent = e.key.toUpperCase()
     if(columna < 4) {
       casillaSeleccionada.classList.remove('letterActive')
       columna++
+      words[fila].children[columna].classList.add('letterActive')
+    }
+    let palabra = []
+    for(let j = 0; j < 5;j++) {
+      palabra.push(words[fila].children[j].lastElementChild.textContent)
+    }
+    if(columna === 4 && words[fila].children[columna].lastElementChild.textContent != "") {
+      cambiarAVacios(palabra)
+    }
+    if(!palabra.includes("")) {
+      words[fila].children[columna].classList.remove('letterActive')
+      columna = 4
       words[fila].children[columna].classList.add('letterActive')
     }
   }
@@ -147,6 +172,7 @@ body.addEventListener('keydown', e => {
   }
 })
 
+// Uso del teclado visual
 teclado.addEventListener('click', (e) => {
 
   if(/[a-zA-ZñÑ]/.test(e.target.id) && e.target.id.length === 1) {
@@ -184,6 +210,17 @@ teclado.addEventListener('click', (e) => {
         columna--
       }
     }
+  }
+})
+
+// Cambiar la casilla activa
+box.addEventListener('click', (e) => {
+  const classSelect = e.target.parentElement.parentElement.classList.value.split(" ")
+  words[fila].children[columna].classList.remove('letterActive')
+  if(classSelect?.includes('word') && fila + 1  == classSelect[0].at(4)) {
+    columna = e.target.parentElement.classList[0].at(6) - 1
+    console.log(columna)
+    words[fila].children[columna].classList.add('letterActive')
   }
 })
 
