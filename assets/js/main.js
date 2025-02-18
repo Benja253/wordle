@@ -7,23 +7,39 @@ const modal = document.getElementById('modal')
 const btnRepeat = document.getElementById('modalBtn')
 const box = document.getElementById('box')
 const notification = document.getElementById('notification')
+const stats = document.getElementById('modal__stats')
 
 let fila = 0
 let columna = 0
+let endGame = false
 
 words[fila].children[columna].classList.add('letterActive')
 
 // Comprueba si la palabra existe en la base de datos
 const palabraExiste = (palabra, arrPalabras) => arrPalabras.includes(palabra.toLowerCase())
 
-const cambiarAVacios = (arrPalabra) => {
-  if(arrPalabra.indexOf('') != -1) {
-    words[fila].children[columna].classList.remove('letterActive')
-    columna = arrPalabra.indexOf('')
-    words[fila].children[columna].classList.add('letterActive')
+// Cambiar el casilla activa
+const cambiarActivo = (columnaNueva, filaNueva = fila) => {
+  words[fila].children[columna].classList.remove('letterActive')
+  columna = columnaNueva
+  fila = filaNueva
+  words[fila].children[columnaNueva].classList.add('letterActive')
+}
+
+// Buscar campos vacíos
+const BuscarVacios = (arrPalabra, desde = 0) => {
+  if(arrPalabra.indexOf('', desde) != -1) {
+    cambiarActivo(arrPalabra.indexOf('', desde))
   } else {
     columna = 4
+    cambiarActivo(columna)
   }
+}
+
+// Rellenar campo
+const rellenarCampo = (nuevoValor = '', filaNueva = fila, columnaNueva = columna) => {
+  words[filaNueva].children[columnaNueva].firstElementChild.textContent = nuevoValor
+  words[filaNueva].children[columnaNueva].lastElementChild.textContent = nuevoValor
 }
 
 // Comprobar si es la misma palabra
@@ -62,7 +78,28 @@ const comprobarPalabra = (palabra, wordDay) => {
     }
   })
 
+  // Si ganó
   if(arrResult.every(cv => cv.coincidencia === 'perfect')) {
+    let estadisticas = localStorage.getItem('estadisticas')
+    if(estadisticas) {
+      estadisticas = {
+        ...JSON.parse(localStorage.getItem('estadisticas')),
+        [fila + 1]: +JSON.parse(localStorage.getItem('estadisticas'))[fila + 1] + 1
+      }
+    } else {
+      estadisticas = {1:0,2:0,3:0,4:0,5:0,6:0,x:0, [fila + 1]: 1}
+    }
+
+    localStorage.setItem('estadisticas', JSON.stringify(estadisticas))
+
+    const max = Object.values(estadisticas).toSorted((a, b) => b - a)[0]
+
+    for(let i = 0;i <= 6;i++) {
+      const valor =  `${(i == 6 ? estadisticas.x : estadisticas[i + 1])/(max == 0 ? 1 : max) * 100}%`
+      stats.children[i].children[1].firstElementChild.style.width = valor
+      stats.children[i].lastElementChild.textContent = (i == 6 ? estadisticas.x : estadisticas[i + 1])
+    }
+
     const titleModal = modal.firstElementChild.firstElementChild
     const spanResult = modal.firstElementChild.children[1].firstElementChild
     const btnModal = modal.firstElementChild.children[3].firstElementChild
@@ -71,11 +108,34 @@ const comprobarPalabra = (palabra, wordDay) => {
     titleModal.textContent = 'Ganaste 🎉'
     spanResult.classList.remove('modal__red')
     btnModal.classList.remove('modal__red')
+    stats.classList.remove('modal__red')
     imgModal.src = './assets/imgs/meme-muy-bien.jpg'
     spanResult.textContent = wordDay
     modal.classList.remove('modal__hidden')
+    endGame = true
   }
+  // Si perdió
   if(fila === 5 && !arrResult.every(cv => cv.coincidencia === 'perfect')) {
+    let estadisticas = localStorage.getItem('estadisticas')
+    if(estadisticas) {
+      estadisticas = {
+        ...JSON.parse(localStorage.getItem('estadisticas')),
+        x: +JSON.parse(localStorage.getItem('estadisticas')).x + 1
+      }
+    } else {
+      estadisticas = {1:0,2:0,3:0,4:0,5:0,6:0,x:1}
+    }
+
+    localStorage.setItem('estadisticas', JSON.stringify(estadisticas))
+
+    const max = Object.values(estadisticas).toSorted((a, b) => b - a)[0]
+
+    for(let i = 0;i <= 6;i++) {
+      const valor =  `${(i == 6 ? estadisticas.x : estadisticas[i + 1])/(max == 0 ? 1 : max) * 100}%`
+      stats.children[i].children[1].firstElementChild.style.width = valor
+      stats.children[i].lastElementChild.textContent = (i == 6 ? estadisticas.x : estadisticas[i + 1])
+    }
+
     const titleModal = modal.firstElementChild.firstElementChild
     const spanResult = modal.firstElementChild.children[1].firstElementChild
     const btnModal = modal.firstElementChild.children[3].firstElementChild
@@ -84,9 +144,11 @@ const comprobarPalabra = (palabra, wordDay) => {
     titleModal.textContent = 'Perdiste ❌'
     spanResult.classList.add('modal__red')
     btnModal.classList.add('modal__red')
+    stats.classList.add('modal__red')
     imgModal.src = './assets/imgs/meme-ninio-venas.jpg'
     spanResult.textContent = wordDay
     modal.classList.remove('modal__hidden')
+    endGame = true
   }
   return arrResult
 }
@@ -95,8 +157,10 @@ const callbackEnter = (palabra) => {
   const objetoCoincidencias = comprobarPalabra(palabra, palabraDelDia)
   for(let i = 0; i < objetoCoincidencias.length; i++) {
     words[fila].children[i].lastElementChild.classList.add(objetoCoincidencias[i].coincidencia)
+    console.log({fila})
     setTimeout(() => {
       const isFinalWord = words[5].children[4].lastElementChild.textContent !== ''
+      console.log({fila, i, isFinalWord})
       words[isFinalWord ? 5 : fila - 1].children[i].firstElementChild.classList.remove('front')
       words[isFinalWord ? 5 : fila - 1].children[i].firstElementChild.classList.add('back')
       words[isFinalWord ? 5 : fila - 1].children[i].lastElementChild.classList.remove('back')
@@ -109,10 +173,8 @@ const callbackEnter = (palabra) => {
     })
   }, 800)
   if(fila < 5) {
-    words[fila].children[columna].classList.remove('letterActive')
-    columna = 0
-    fila++
-    words[fila].children[columna].classList.add('letterActive')
+    console.log('entrar')
+    cambiarActivo(0, fila + 1)
   }
 }
 
@@ -122,39 +184,32 @@ body.addEventListener('keydown', e => {
 
   // Comprueba si es una letra
   if(columna <= 4 && /[a-zA-ZñÑ]/.test(e.key) && e.key.length === 1 && casillaSeleccionada.firstElementChild.textContent === '') {
-    casillaSeleccionada.firstElementChild.textContent = e.key.toUpperCase()
-    casillaSeleccionada.lastElementChild.textContent = e.key.toUpperCase()
-    if(columna < 4) {
-      casillaSeleccionada.classList.remove('letterActive')
-      columna++
-      words[fila].children[columna].classList.add('letterActive')
-    }
+    rellenarCampo(e.key.toUpperCase())
     let palabra = []
     for(let j = 0; j < 5;j++) {
       palabra.push(words[fila].children[j].lastElementChild.textContent)
     }
-    if(palabra.includes("") && palabra[4] != "") {
-      cambiarAVacios(palabra)
+    if(columna < 4) {
+      console.log(columna - 1)
+      BuscarVacios(palabra, columna)
+    }
+    if(columna == 4 && words[fila].children[4].lastElementChild.textContent != '') {
+      BuscarVacios(palabra)
     }
     if(!palabra.includes("")) {
-      words[fila].children[columna].classList.remove('letterActive')
-      columna = 4
-      words[fila].children[columna].classList.add('letterActive')
+      columna = 3
+      cambiarActivo(4)
     }
   }
 
   // Funcionalidad cuando se apreta la tecla backscace
   if(e.key === 'Backspace' && fila !== 6) {
     if(words[fila].children[columna].firstElementChild.textContent !== '') {
-      words[fila].children[columna].firstElementChild.textContent = ''
-      words[fila].children[columna].lastElementChild.textContent = ''
+      rellenarCampo()
     } else {
       if(columna > 0) {
-        words[fila].children[columna].classList.remove('letterActive')
-        words[fila].children[columna - 1].classList.add('letterActive')
-        words[fila].children[columna - 1].firstElementChild.textContent = ''
-        words[fila].children[columna - 1].lastElementChild.textContent = ''
-        columna--
+        cambiarActivo(columna - 1)
+        rellenarCampo()
       }
     }
   }
@@ -166,7 +221,7 @@ body.addEventListener('keydown', e => {
       palabra += words[fila].children[j].lastElementChild.textContent
     }
     if(palabraExiste(palabra, todasLasPalabras)) {
-      callbackEnter(palabra)
+      !endGame && callbackEnter(palabra)
     } else {
       notification.classList.add('show-notificacion')
       setTimeout(() => {
@@ -177,14 +232,10 @@ body.addEventListener('keydown', e => {
 
   // flechas izquierda y derecha
   if(e.key == "ArrowLeft" && columna > 0) {
-    words[fila].children[columna].classList.remove('letterActive')
-    columna--
-    words[fila].children[columna].classList.add('letterActive')
+    cambiarActivo(columna - 1)
   }
   if(e.key == "ArrowRight" && columna < 4) {
-    words[fila].children[columna].classList.remove('letterActive')
-    columna++
-    words[fila].children[columna].classList.add('letterActive')
+    cambiarActivo(columna + 1)
   }
 })
 
@@ -192,24 +243,19 @@ body.addEventListener('keydown', e => {
 teclado.addEventListener('click', (e) => {
 
   if(/[a-zA-ZñÑ]/.test(e.target.id) && e.target.id.length === 1 && words[fila].children[columna].firstElementChild.textContent === '') {
-    words[fila].children[columna].firstElementChild.textContent = e.target.id.toUpperCase()
-    words[fila].children[columna].lastElementChild.textContent = e.target.id.toUpperCase()
+    rellenarCampo(e.target.id.toUpperCase())
     if(columna < 4) {
-      words[fila].children[columna].classList.remove('letterActive')
-      columna++
-      words[fila].children[columna].classList.add('letterActive')
+      cambiarActivo(columna + 1)
     }
     let palabra = []
     for(let j = 0; j < 5;j++) {
       palabra.push(words[fila].children[j].lastElementChild.textContent)
     }
     if(palabra.includes("") && palabra[4] != "") {
-      cambiarAVacios(palabra)
+      BuscarVacios(palabra)
     }
     if(!palabra.includes("")) {
-      words[fila].children[columna].classList.remove('letterActive')
-      columna = 4
-      words[fila].children[columna].classList.add('letterActive')
+      cambiarActivo(4)
     }
   }
 
@@ -230,15 +276,11 @@ teclado.addEventListener('click', (e) => {
 
   if((e.target.id === 'Backspace' || e.target.parentElement.id === 'Backspace') && fila !== 6) {
     if(words[fila].children[columna].firstElementChild.textContent !== '' ) {
-      words[fila].children[columna].firstElementChild.textContent = ''
-      words[fila].children[columna].lastElementChild.textContent = ''
+      rellenarCampo()
     } else {
       if(columna > 0) {
-        words[fila].children[columna].classList.remove('letterActive')
-        words[fila].children[columna - 1].classList.add('letterActive')
-        words[fila].children[columna - 1].firstElementChild.textContent = ''
-        words[fila].children[columna - 1].lastElementChild.textContent = ''
-        columna--
+        cambiarActivo(columna - 1)
+        rellenarCampo()
       }
     }
   }
@@ -256,10 +298,9 @@ box.addEventListener('click', (e) => {
 
 btnRepeat.addEventListener('click', () => {
   palabraDelDia = palabrasSelect[Math.floor(Math.random() * palabrasSelect.length)]
-  for(let i = 0;i<6; i++) {
-    for(let j = 0;j<5;j++) {
-      words[i].children[j].firstElementChild.textContent = ''
-      words[i].children[j].lastElementChild.textContent = ''
+  for(let i = 0;i < 6; i++) {
+    for(let j = 0;j < 5;j++) {
+      rellenarCampo('', i, j)
       words[i].children[j].lastElementChild.classList.remove('no')
       words[i].children[j].lastElementChild.classList.remove('imperfect')
       words[i].children[j].lastElementChild.classList.remove('perfect')
@@ -278,4 +319,5 @@ btnRepeat.addEventListener('click', () => {
       teclado.children[i].children[j].classList.remove('perfect')
     }
   }
+  endGame = false
 })

@@ -19,6 +19,8 @@
   color: var(--white-color);
   padding: 2em 1.5em 3em;
   border-radius: 0.8em;
+  width: 100%;
+  max-width: 20em;
 }
 .modal__title {
   text-align: center;
@@ -40,13 +42,50 @@
   text-transform: uppercase;
   font-size: 1.4em;
   font-weight: 700;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.8em;
   &.modal__red {
     color: red;
   }
 }
-.modal__img {
-  max-width: 20em;
+.modal__stats {
+  --color-selected: green;
+  display: grid;
+  gap: 0.5em;
+  padding-bottom: 1em;
+  &.modal__red {
+    --color-selected: rgb(190, 46, 46);
+  }
+}
+.modal__stat {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+}
+.modal__stat__label {
+  color: var(--white-color);
+  font-size: 0.8em;
+  width: 4.8em;
+  text-align: center;
+}
+.modal__stat__value {
+  flex: 1;
+  height: 1.7em;
+  border: 0.5px solid var(--light-blue);
+  border-radius: 0.4em;
+  overflow: hidden;
+}
+.modal__stat__bar {
+  width: 100%;
+  background-color: green;
+  height: 100%;
+}
+.modal__error {
+  background-color: rgb(190, 46, 46)
+}
+.modal__stat__number {
+  width: 1em;
+  color: var(--white-color);
+  font-weight: 900;
 }
 .modal__btn__container {
   display: flex;

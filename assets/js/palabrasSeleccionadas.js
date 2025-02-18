@@ -801,6 +801,7 @@ const palabrasSelect = [
   "lento",
   "lepra",
   "letal",
+  "letra",
   "leñas",
   "liana",
   "libra",

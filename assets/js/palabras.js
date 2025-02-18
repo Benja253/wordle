@@ -2308,6 +2308,7 @@ const todasLasPalabras = [
   "lepra",
   "lesna",
   "letal",
+  "letra",
   "levar",
   "leves",
   "leyes",
