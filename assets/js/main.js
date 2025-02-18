@@ -6,6 +6,7 @@ const teclado = document.getElementById('teclado')
 const modal = document.getElementById('modal')
 const btnRepeat = document.getElementById('modalBtn')
 const box = document.getElementById('box')
+const notification = document.getElementById('notification')
 
 let fila = 0
 let columna = 0
@@ -156,15 +157,6 @@ body.addEventListener('keydown', e => {
         columna--
       }
     }
-    let palabra = []
-    for(let j = 0; j < 5;j++) {
-      palabra.push(words[fila].children[j].lastElementChild.textContent)
-    }
-    if(palabra.every(e => e == "")) {
-      words[fila].children[columna].classList.remove('letterActive')
-      columna = 0
-      words[fila].children[columna].classList.add('letterActive')
-    }
   }
 
   // Funcionalidad cuando se apreta la tecla enter
@@ -176,8 +168,23 @@ body.addEventListener('keydown', e => {
     if(palabraExiste(palabra, todasLasPalabras)) {
       callbackEnter(palabra)
     } else {
-      alert('La palabra no existe')
+      notification.classList.add('show-notificacion')
+      setTimeout(() => {
+        notification.classList.remove('show-notificacion')
+      }, 2500)
     }
+  }
+
+  // flechas izquierda y derecha
+  if(e.key == "ArrowLeft" && columna > 0) {
+    words[fila].children[columna].classList.remove('letterActive')
+    columna--
+    words[fila].children[columna].classList.add('letterActive')
+  }
+  if(e.key == "ArrowRight" && columna < 4) {
+    words[fila].children[columna].classList.remove('letterActive')
+    columna++
+    words[fila].children[columna].classList.add('letterActive')
   }
 })
 
@@ -214,7 +221,10 @@ teclado.addEventListener('click', (e) => {
     if(palabraExiste(palabra, todasLasPalabras)) {
       callbackEnter(palabra)
     } else {
-      alert('La palabra no existe')
+      notification.classList.add('show-notificacion')
+      setTimeout(() => {
+        notification.classList.remove('show-notificacion')
+      }, 2500)
     }
   }
 
@@ -231,15 +241,6 @@ teclado.addEventListener('click', (e) => {
         columna--
       }
     }
-    let palabra = []
-    for(let j = 0; j < 5;j++) {
-      palabra.push(words[fila].children[j].lastElementChild.textContent)
-    }
-    if(palabra.every(e => e == "")) {
-      words[fila].children[columna].classList.remove('letterActive')
-      columna = 0
-      words[fila].children[columna].classList.add('letterActive')
-    }
   }
 })
 
@@ -254,5 +255,27 @@ box.addEventListener('click', (e) => {
 })
 
 btnRepeat.addEventListener('click', () => {
-  location.reload()
+  palabraDelDia = palabrasSelect[Math.floor(Math.random() * palabrasSelect.length)]
+  for(let i = 0;i<6; i++) {
+    for(let j = 0;j<5;j++) {
+      words[i].children[j].firstElementChild.textContent = ''
+      words[i].children[j].lastElementChild.textContent = ''
+      words[i].children[j].lastElementChild.classList.remove('no')
+      words[i].children[j].lastElementChild.classList.remove('imperfect')
+      words[i].children[j].lastElementChild.classList.remove('perfect')
+    }
+  }
+  words[fila].children[columna].classList.remove('letterActive')
+  fila = 0
+  columna = 0
+  words[fila].children[columna].classList.add('letterActive')
+  modal.classList.add('modal__hidden')
+  for(let i = 0; i < 3 ; i++) {
+    const limit = teclado.children[i].children.length
+    for(let j = 0; j < limit; j++) {
+      teclado.children[i].children[j].classList.remove('no')
+      teclado.children[i].children[j].classList.remove('imperfect')
+      teclado.children[i].children[j].classList.remove('perfect')
+    }
+  }
 })
