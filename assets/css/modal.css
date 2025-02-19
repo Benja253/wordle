@@ -92,6 +92,7 @@
   justify-content: center;
   align-items: center;
   margin-top: 1em;
+  user-select: none;
 }
 .modal__btn {
   background-color: green;
@@ -100,24 +101,13 @@
   border-radius: 0.5em;
   font-size: 1em;
   border: none;
-  animation: btn__scale 500ms infinite;
   cursor: pointer;
+  transition: transform 100ms ease;
   &:hover {
     filter: brightness(1.1);
+    transform: scale(1.04)
   }
   &.modal__red {
     background-color: red;
-  }
-}
-
-@keyframes btn__scale {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
   }
 }

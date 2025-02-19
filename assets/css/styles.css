@@ -31,6 +31,7 @@
   width: max-content;
   gap: 0.7em;
   padding-top: 1em;
+  user-select: none;
 }
 .word {
   display: flex;

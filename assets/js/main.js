@@ -157,10 +157,9 @@ const callbackEnter = (palabra) => {
   const objetoCoincidencias = comprobarPalabra(palabra, palabraDelDia)
   for(let i = 0; i < objetoCoincidencias.length; i++) {
     words[fila].children[i].lastElementChild.classList.add(objetoCoincidencias[i].coincidencia)
-    console.log({fila})
     setTimeout(() => {
+      fila = fila == 0 ? 1 : fila
       const isFinalWord = words[5].children[4].lastElementChild.textContent !== ''
-      console.log({fila, i, isFinalWord})
       words[isFinalWord ? 5 : fila - 1].children[i].firstElementChild.classList.remove('front')
       words[isFinalWord ? 5 : fila - 1].children[i].firstElementChild.classList.add('back')
       words[isFinalWord ? 5 : fila - 1].children[i].lastElementChild.classList.remove('back')
@@ -173,7 +172,6 @@ const callbackEnter = (palabra) => {
     })
   }, 800)
   if(fila < 5) {
-    console.log('entrar')
     cambiarActivo(0, fila + 1)
   }
 }
@@ -190,7 +188,6 @@ body.addEventListener('keydown', e => {
       palabra.push(words[fila].children[j].lastElementChild.textContent)
     }
     if(columna < 4) {
-      console.log(columna - 1)
       BuscarVacios(palabra, columna)
     }
     if(columna == 4 && words[fila].children[4].lastElementChild.textContent != '') {
@@ -297,27 +294,33 @@ box.addEventListener('click', (e) => {
 })
 
 btnRepeat.addEventListener('click', () => {
-  palabraDelDia = palabrasSelect[Math.floor(Math.random() * palabrasSelect.length)]
-  for(let i = 0;i < 6; i++) {
-    for(let j = 0;j < 5;j++) {
-      rellenarCampo('', i, j)
-      words[i].children[j].lastElementChild.classList.remove('no')
-      words[i].children[j].lastElementChild.classList.remove('imperfect')
-      words[i].children[j].lastElementChild.classList.remove('perfect')
-    }
-  }
-  words[fila].children[columna].classList.remove('letterActive')
-  fila = 0
-  columna = 0
-  words[fila].children[columna].classList.add('letterActive')
-  modal.classList.add('modal__hidden')
-  for(let i = 0; i < 3 ; i++) {
-    const limit = teclado.children[i].children.length
-    for(let j = 0; j < limit; j++) {
-      teclado.children[i].children[j].classList.remove('no')
-      teclado.children[i].children[j].classList.remove('imperfect')
-      teclado.children[i].children[j].classList.remove('perfect')
-    }
-  }
+  // modal.classList.add('modal__hidden')
+  // palabraDelDia = palabrasSelect[Math.floor(Math.random() * palabrasSelect.length)]
+  // console.log('Me ejecuté')
+  // for(let i = 0;i < 6; i++) {
+  //   for(let j = 0;j < 5;j++) {
+  //     rellenarCampo('', i, j)
+  //     words[i].children[j].lastElementChild.classList.remove('no')
+  //     words[i].children[j].lastElementChild.classList.remove('imperfect')
+  //     words[i].children[j].lastElementChild.classList.remove('perfect')
+  //     words[i].children[j].firstElementChild.classList.add('front')
+  //     words[i].children[j].firstElementChild.classList.remove('back')
+  //     words[i].children[j].lastElementChild.classList.add('back')
+  //     words[i].children[j].lastElementChild.classList.remove('front')
+  //   }
+  // }
+  // words[fila].children[columna].classList.remove('letterActive')
+  // fila = 0
+  // columna = 0
+  // words[fila].children[columna].classList.add('letterActive')
+  // for(let i = 0; i < 3 ; i++) {
+  //   const limit = teclado.children[i].children.length
+  //   for(let j = 0; j < limit; j++) {
+  //     teclado.children[i].children[j].classList.remove('no')
+  //     teclado.children[i].children[j].classList.remove('imperfect')
+  //     teclado.children[i].children[j].classList.remove('perfect')
+  //   }
+  // }
   endGame = false
+  location.reload()
 })
