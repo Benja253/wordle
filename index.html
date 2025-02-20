@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="./assets/css/reset.css">
   <link rel="stylesheet" href="./assets/css/modal.css">
   <link rel="stylesheet" href="./assets/css/styles.css">
+  <link rel="stylesheet" href="./assets/css/instrucciones.css">
   <title>Wordle Benja</title>
 </head>
 <body id="body">
@@ -244,6 +245,89 @@
       <div id="n" class="tecla n">n</div>
       <div id="m" class="tecla m">m</div>
       <div id="Backspace" class="tecla backspace"><img src="./assets/imgs/backspace-21.svg" alt="" srcset=""></div>
+    </div>
+  </div>
+  <div class="inst" id="instrucciones">
+    <h2 class="inst__title">Cómo jugar</h2>
+    <div class="inst__body">
+      <p class="inst__description">Debes adivinar una palabra de cinco letras, tienes 6 intentos para hacerlo.</p>
+      <ol class="inst__list">
+        <li class="inst__item">
+          <p class="inst__item__desc">Para comenzar debes colocar una palabra que exista y presionar enter para obtener pistas</p>
+          <ul class="word1 word">
+            <li class="letter1 letter">
+              <div class="front no">J</div>
+            </li>
+            <li class="letter2 letter">
+              <div class="front perfect">U</div>
+            </li>
+            <li class="letter3 letter">
+              <div class="front no">G</div>
+            </li>
+            <li class="letter4 letter">
+              <div class="front imperfect">A</div>
+            </li>
+            <li class="letter5 letter">
+              <div class="front imperfect">R</div>
+            </li>
+          </ul>
+        </li>
+        <li class="inst__item">
+          <p class="inst__item__desc">Las pistas son las siguientes: </p>
+          <ol class="pistas__list">
+            <li class="pistas__item">
+              <ul class="word1 word">
+                <li class="letter1 letter">
+                  <div class="front no">J</div>
+                </li>
+                <li class="letter3 letter">
+                  <div class="front no">G</div>
+                </li>
+              </ul>
+              <p>La letra no existe.</p>
+            </li>
+            <li class="pistas__item">
+              <ul class="word1 word">
+                <li class="letter1 letter">
+                  <div class="front imperfect">A</div>
+                </li>
+                <li class="letter3 letter">
+                  <div class="front imperfect">R</div>
+                </li>
+              </ul>
+              <p>La letra existe dentro de la palabra pero no en esa posición.</p>
+            </li>
+            <li class="pistas__item">
+              <ul class="word1 word">
+                <li class="letter1 letter">
+                  <div class="front perfect">U</div>
+                </li>
+              </ul>
+              <p>La letra existe dentro de la palabra y además en esa posición.</p>
+            </li>
+          </ol>
+        </li>
+        <li class="inst__item">
+          <p class="inst__item__desc">Cuando todas las coincidencias son verdes. <span class="inst__win">Ganaste ✨</span></p>
+          <ul class="word1 word">
+            <li class="letter1 letter">
+              <div class="front perfect">C</div>
+            </li>
+            <li class="letter2 letter">
+              <div class="front perfect">U</div>
+            </li>
+            <li class="letter3 letter">
+              <div class="front perfect">R</div>
+            </li>
+            <li class="letter4 letter">
+              <div class="front perfect">V</div>
+            </li>
+            <li class="letter5 letter">
+              <div class="front perfect">A</div>
+            </li>
+          </ul>
+        </li>
+      </ol>
     </div>
   </div>
   <!-- <script src="./assets/js/data.js"></script> -->

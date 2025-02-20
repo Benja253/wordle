@@ -1,0 +1,64 @@
+.inst {
+  padding: 2em 1em;
+  color: var(--white-color);
+  & .letter {
+    font-size: 1.3rem;
+  }
+}
+.inst__title {
+  text-align: center;
+  color: var(--white-color);
+  width: 100%;
+  max-width: 20em;
+  background-color: var(--gray-color);
+  padding: 0.4em 0;
+  border-radius: 0.5em;
+  margin: 0 auto;
+  margin-bottom: 1em;
+}
+.inst__description {
+  font-size: 1.1em;
+  font-weight: 500;
+}
+.inst__body {
+  width: 100%;
+  max-width: 45em;
+  margin: 0 auto;
+}
+.inst__list {
+  display: grid;
+  gap: 1.5em;
+}
+.inst__item {
+  color: #ccc;
+  font-weight: 300;
+  &::marker {
+    font-size: 1.1em;
+    font-weight: 700;
+    color: var(--light-blue);
+  }
+}
+.inst__item__desc {
+  margin-bottom: 0.6em;
+}
+.pistas__list {
+  display: grid;
+  gap: 0.5em;
+  padding: 0em;
+}
+.pistas__item {
+  display: grid;
+  grid-template-columns: 5em 1fr;
+  gap: 1em;
+  align-items: center;
+  list-style-type: lower-latin;
+  &::marker {
+    font-weight: 700;
+    color: var(--light-blue);
+  }
+}
+.inst__win {
+  color: rgb(1, 193, 1);
+  font-weight: 700;
+  font-size: 1.2em;
+}

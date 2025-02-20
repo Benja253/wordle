@@ -6,6 +6,8 @@
   --dark-blue: #2d3e53;
   --white-color: #eee;
   --light-blue: #6eacda;
+  --gray-color: #2a2a2ae0;
+  --teclado-color: #3f4752;
 }
 html {
   font-family: "Inter", sans-serif;
@@ -19,7 +21,7 @@ body {
   background: var(--dark-color);
   position: relative;
 }
-h1, h2, h3, h4, ul {
+h1, h2, h3, h4, ul, p {
   margin-top: 0;
   margin-bottom: 0;
 }

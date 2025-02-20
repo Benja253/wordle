@@ -148,6 +148,15 @@
 .backspace {
   order: 1;
 }
+.inst {
+  & .letter {
+    user-select: none;
+    cursor: default;
+    &:hover {
+      filter: none;
+    }
+  }
+}
 .no {
   background-color: #2a2a2ae0;
   color: white;
@@ -168,7 +177,7 @@
   .title {
     padding-top: 1.2em;
   }
-  .box {
+  .box, .inst{
     font-size: 0.9rem
   }
 }
