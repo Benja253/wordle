@@ -1,16 +1,49 @@
+.inst__container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  position: fixed;
+  transform: translateX(0);
+  top: 0;
+  backdrop-filter: blur(3px);
+  background: var(--dark-color);
+  transition: transform 300ms ease;
+}
+.inst__hidden {
+  transform: translateX(-100%);
+}
 .inst {
   padding: 2em 1em;
   color: var(--white-color);
   & .letter {
     font-size: 1.3rem;
   }
+  width: 100%;
+  max-width: 45em;
+  position: relative;
+}
+.inst__x {
+  position: absolute;
+  right: 0;
+  top: 1.5em;
+  width: 2.5em;
+  font-size: 1.4em;
+  aspect-ratio: 1.22;
+  background-color: rgb(198, 63, 63);
+  color: var(--white-color);
+  border-radius: 0.5em;
+  border: none;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(1.1);
+  }
 }
 .inst__title {
   text-align: center;
   color: var(--white-color);
   width: 100%;
-  max-width: 20em;
-  background-color: var(--gray-color);
+  background-color: var(--dark-blue);
   padding: 0.4em 0;
   border-radius: 0.5em;
   margin: 0 auto;
@@ -19,11 +52,7 @@
 .inst__description {
   font-size: 1.1em;
   font-weight: 500;
-}
-.inst__body {
-  width: 100%;
-  max-width: 45em;
-  margin: 0 auto;
+  margin-bottom: 2em;
 }
 .inst__list {
   display: grid;

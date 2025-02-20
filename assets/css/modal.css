@@ -4,7 +4,8 @@
   left: 0;
   width: 100%;
   min-height: 100vh;
-  backdrop-filter: blur(2px);
+  z-index: 10;
+  backdrop-filter: blur(3px);
   display: flex;
   justify-content: center;
   align-items: center;

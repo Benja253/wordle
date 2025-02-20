@@ -8,6 +8,9 @@ const btnRepeat = document.getElementById('modalBtn')
 const box = document.getElementById('box')
 const notification = document.getElementById('notification')
 const stats = document.getElementById('modal__stats')
+const btnClose = document.getElementById('btn__close')
+const btnInstrucciones = document.getElementById('btn__inst')
+const instrucciones = document.getElementById('inst')
 
 let fila = 0
 let columna = 0
@@ -293,6 +296,16 @@ box.addEventListener('click', (e) => {
   }
 })
 
+//Apertura y cierre de instrucciones
+btnInstrucciones.addEventListener('click', e => {
+  instrucciones.classList.remove('inst__hidden')
+})
+
+btnClose.addEventListener('click', () => {
+  instrucciones.classList.add('inst__hidden')
+})
+
+// Jugar de nuevo
 btnRepeat.addEventListener('click', () => {
   // modal.classList.add('modal__hidden')
   // palabraDelDia = palabrasSelect[Math.floor(Math.random() * palabrasSelect.length)]

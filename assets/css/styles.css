@@ -16,6 +16,22 @@
 .show-notificacion {
   top: 3em;
 }
+.inst__btn {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  background-color: var(--dark-blue);
+  color: var(--white-color);
+  font-family: inherit;
+  border: none;
+  padding: 0.8em 1.5em;
+  font-weight: 700;
+  border-radius: 0.8em;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(1.2);
+  }
+}
 .title {
   font-size: 2em;
   font-weight: 600;
