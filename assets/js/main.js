@@ -9,6 +9,7 @@ const box = document.getElementById('box')
 const notification = document.getElementById('notification')
 const stats = document.getElementById('modal__stats')
 const btnClose = document.getElementById('btn__close')
+const btnCerrar = document.getElementById('btn__cerrar')
 const btnInstrucciones = document.getElementById('btn__inst')
 const instrucciones = document.getElementById('inst')
 
@@ -302,6 +303,10 @@ btnInstrucciones.addEventListener('click', e => {
 })
 
 btnClose.addEventListener('click', () => {
+  instrucciones.classList.add('inst__hidden')
+})
+
+btnCerrar.addEventListener('click', () => {
   instrucciones.classList.add('inst__hidden')
 })
 

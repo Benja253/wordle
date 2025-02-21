@@ -91,3 +91,21 @@
   font-weight: 700;
   font-size: 1.2em;
 }
+.inst__footer {
+  display: flex;
+  justify-content: center;
+}
+.inst__cerrar {
+  margin-top: 1em;
+  padding: 0.8em 0;
+  width: 15em;
+  background-color: rgb(198, 63, 63);
+  color: white;
+  border: none;
+  border-radius: 0.8em;
+  cursor: pointer;
+  font-size: 1.1em;
+  &:hover {
+    filter: brightness(1.1);
+  }
+}
